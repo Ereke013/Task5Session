@@ -98,8 +98,10 @@
 
       <div class="col-sm-3 offset-1">
         <div class="card" style="width: 18rem;">
-          <div class="card-header bg-primary">
+          <div class="card-header bg-primary" style="font-size: 15px; color: #ffffff">
+            <strong>
             Latest Bithdays
+            </strong>
           </div>
           <div class="card-body">
             <p class = "card-text"> Musa Uatbaev, tomorrow</p>
@@ -109,8 +111,10 @@
           </div>
         </div>
         <div class="card mt-4" style="width: 18rem;">
-          <div class="card-header bg-primary ">
-            My Games
+          <div class="card-header bg-primary" style="font-size: 15px; color: #ffffff">
+            <strong>
+             My Games
+            </strong>
           </div>
           <div class="card-body">
             <p class="card-text">FOOTBAL ONLINE</p>
