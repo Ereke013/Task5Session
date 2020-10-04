@@ -135,5 +135,6 @@
   </div>
 
 
+  <%@include file="vendor/footer.jsp"%>
   </body>
 </html>
