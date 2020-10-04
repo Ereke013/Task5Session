@@ -1,4 +1,5 @@
-<%--
+<%@ page import="db.DBManager" %>
+<%@ page import="java.sql.Date" %><%--
   Created by IntelliJ IDEA.
   User: ERLAN-PC
   Date: 03.10.2020
@@ -22,7 +23,7 @@
         <img src="<%=myuser.getPicture_url()%>" width="255px">
         <table class="table table-bordered mt-3">
           <tr>
-            <td><%=myuser.getFullName()%><%=String.valueOf(myuser.getBirthdate())%></td>
+            <td><%=myuser.getFullName()%>, <%= DBManager.getAge(myuser.getId()) %> age</td>
           </tr>
           <tr>
             <td><a>My profile</a></td>

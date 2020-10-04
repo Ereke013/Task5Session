@@ -142,4 +142,42 @@ public class DBManager {
 
         return user;
     }
+
+//    public static boolean getAge(Date birthdate){
+//        int userAge = 0;
+//
+//        try {
+//            PreparedStatement ps = connection.prepareStatement("SELECT birth_date, TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) AS age FROM users where birth_date = ?");
+//            ps.setDate(1, birthdate);
+//            ResultSet rs = ps.executeQuery();
+//
+//            rs.getDate(1);
+//            userAge = ps.executeUpdate();
+//            ps.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return userAge > 0;
+//    }
+
+    public static int getAge(Long id) {
+        int userAge = 0;
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT birth_date, TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) AS age FROM users where id = "+id);
+//            ps.setDate(1, (Date) birthdate);
+            ResultSet rs = ps.executeQuery();
+            System.out.println("age:+"+rs);
+            if(rs.next()) {
+                userAge = rs.getInt(2);
+            }
+            ps.close();
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return userAge;
+    }
 }
