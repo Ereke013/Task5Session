@@ -119,4 +119,27 @@ public class DBManager {
         }
         return rows > 0;
     }
+
+    public static Users getUserbyemail(String email) {
+        Users user = null;
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * from users where email=?");
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                user = new Users(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        (java.sql.Date )rs.getDate(5),
+                        rs.getString(6)
+                );
+            }
+        } catch (Exception e) {
+        }
+
+        return user;
+    }
 }

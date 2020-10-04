@@ -1,5 +1,8 @@
-<%--<div class="container">--%>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #c7d7ed; padding: 10px 10%">
+<%@ page import="db.Users" %><%--<div class="container">--%>
+<%
+    Users myuser = (Users)request.getSession().getAttribute("MeUser");
+%>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #c7d7ed; padding: 10px 10%">
         <a class="navbar-brand" href="/" style=" font-size: 30px; color: #19386b">
         <img src="../img/aa.png" width="30px" class="ui-icon-image mr-1" alt="" loading="lazy">
         <strong>ARALASU KZ</strong></a>
