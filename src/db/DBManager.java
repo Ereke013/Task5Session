@@ -18,7 +18,7 @@ public class DBManager {
     public static boolean addLeague(Users user) {
         int rows = 0;
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO leagues (id, email, password, full_name, birth_date, picture_url) VALUES (null,?,?,?,?,?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (id, email, password, full_name, birth_date, picture_url) VALUES (null,?,?,?,?,?)");
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getFullName());
