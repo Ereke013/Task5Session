@@ -23,78 +23,18 @@
         <img src="<%=myuser.getPicture_url()%>" width="255px">
         <table class="table table-bordered mt-3">
           <tr>
-            <td><%=myuser.getFullName()%>, <%= DBManager.getAge(myuser.getId()) %> age</td>
+            <td><strong><%=myuser.getFullName()%>, <%= DBManager.getAge(myuser.getId()) %> age</strong></td>
           </tr>
           <tr>
-            <td><a>My profile</a></td>
+            <td><a style="color: #0062cc" href="/profile.jsp"><i class="fas fa-address-card mr-2"></i><strong>My profile</strong></a></td>
           </tr>
           <tr>
-            <td><a>Settings</a></td>
+            <td><a style="color: #0062cc" href="#"><i class="fas fa-cogs mr-2"></i><strong>Settings</strong></a></td>
           </tr>
           <tr>
-            <td><a href="/logout"><button>Logout</button></a></td>
+            <td><a href="/logout" style="color: #a82047"><i class="fas fa-sign-out-alt mr-2"></i><strong>Logout</strong></a></td>
           </tr>
         </table>
-
-
-
-      </div>
-      <div class="col-sm-4 offset-1">
-        <h2 class="text-center">EDIT Profile</h2>
-        <form action="/update?profile" method="post">
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control" value="<%=myuser.getEmail()%>">
-            <label style="font-size: 12px; color: #8c8685">Input your email</label>
-          </div>
-          <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" name="full_name" class="form-control" value="<%=myuser.getFullName()%>">
-            <label style="font-size: 12px; color: #8c8685">Input your full name</label>
-          </div>
-          <div class="form-group">
-            <label>Birthdate</label>
-            <input type="date" name="birthdate" class="form-control" value="<%=String.valueOf(myuser.getBirthdate())%>">
-            <label style="font-size: 12px; color: #8c8685">Input your birthdate</label>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-sm btn-primary">Update Profile</button>
-          </div>
-        </form>
-
-        <h2 class="mt-5">Edit picture</h2>
-        <form action="/update?picture" method="post">
-          <div class="form-group">
-            <label>URL</label>
-            <input type="text" name="url" class="form-control" value="<%= myuser.getPicture_url()%>">
-            <label style="font-size: 12px; color: #8c8685">Input your profile photo</label>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-sm btn-primary">Update Picture</button>
-          </div>
-        </form>
-
-        <h2 class="mt-4">Update Password</h2>
-        <form action="/update?password" method="post">
-          <div class="form-group">
-            <label>Old Password</label>
-            <input type="password" name="old_password" class="form-control">
-            <label style="font-size: 12px; color: #8c8685">Input your old password</label>
-          </div>
-          <div class="form-group">
-            <label>New Password</label>
-            <input type="password" name="new_password" class="form-control">
-            <label style="font-size: 12px; color: #8c8685">Input your new password </label>
-          </div>
-          <div class="form-group">
-            <label>Re-New Password</label>
-            <input type="password" name="re_new_password" class="form-control" >
-            <label style="font-size: 12px; color: #8c8685">Re type your new password again</label>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-sm btn-primary">Update Password</button>
-          </div>
-        </form>
       </div>
 
       <div class="col-sm-3 offset-1">
@@ -118,10 +58,10 @@
             </strong>
           </div>
           <div class="card-body">
-            <p class="card-text">FOOTBAL ONLINE</p>
-            <p class="card-text">PING PONG ONLINE</p>
-            <p class="card-text">CHESS MASTERS</p>
-            <p class="card-text">RACES ONLINE</p>
+            <p class="card-text" style="color: rgb(24,11,122)"><strong><i class="far fa-futbol mr-2"></i>FOOTBAL ONLINE </strong></p>
+            <p class="card-text" style="color: rgb(24,11,122)"><strong><i class="fas fa-table-tennis mr-2"></i>PING PONG ONLINE </strong></p>
+            <p class="card-text" style="color: rgb(24,11,122)"><strong><i class="fas fa-chess mr-2"></i>CHESS MASTERS </strong></p>
+            <p class="card-text" style="color: rgb(24,11,122)"><strong><i class="fas fa-car mr-2"></i>RACES ONLINE </strong></p>
           </div>
         </div>
       </div>
