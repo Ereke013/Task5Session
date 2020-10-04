@@ -15,16 +15,16 @@ public class DBManager {
         }
     }
 
-    public static boolean addLeague(Users user) {
+    public static boolean addUser(Users user) {
         int rows = 0;
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO users (id, email, password, full_name, birth_date, picture_url) VALUES (null,?,?,?,?,?)");
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getFullName());
-            java.util.Date utilStartDate = user.getBirthdate();
-            java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
-            statement.setDate(4, sqlStartDate);
+//            java.util.Date utilStartDate = user.getBirthdate();
+//            java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+            statement.setDate(4, (Date) user.getBirthdate());
             statement.setString(5, user.getPicture_url());
 
             rows = statement.executeUpdate();
@@ -102,13 +102,13 @@ public class DBManager {
     public static boolean saveUser(Users user){
         int rows = 0;
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE users SET email = ?, password = ?, full_name=?, birth_date=?, picture_url=? WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE users SET email = ?, password = ?, full_name=?, birth_date=?, picture_url=? WHERE id = ? ");
             statement.setString(1,user.getEmail());
             statement.setString(2,user.getPassword());
             statement.setString(3,user.getFullName());
             java.util.Date utilStartDate = user.getBirthdate();
             java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
-            statement.setDate(4, sqlStartDate);
+            statement.setDate(4, (Date) user.getBirthdate());
             statement.setString(5,user.getPicture_url());
             statement.setLong(6,user.getId());
 

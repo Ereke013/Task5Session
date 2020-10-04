@@ -19,7 +19,7 @@
 <%--            </div>--%>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link d-flex" style="font-size: 20px; color: #122647" href="/league"><i class="fas fa-portrait"></i>Register</a>
+                    <a class="nav-link d-flex" style="font-size: 20px; color: #122647" href="/register"><i class="fas fa-portrait"></i>Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" style="font-size: 20px; color: #122647" href="/city">Login</a>

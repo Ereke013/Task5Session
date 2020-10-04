@@ -40,7 +40,7 @@
       </div>
       <div class="col-sm-4 offset-1">
         <h2 class="text-center">EDIT Profile</h2>
-        <form action="/updateProfile" method="post">
+        <form action="/update?profile" method="post">
           <div class="form-group">
             <label>Email</label>
             <input type="email" name="email" class="form-control" value="<%=myuser.getEmail()%>">
@@ -62,7 +62,7 @@
         </form>
 
         <h2 class="mt-5">Edit picture</h2>
-        <form action="/updatePicture" method="post">
+        <form action="/update?picture" method="post">
           <div class="form-group">
             <label>URL</label>
             <input type="text" name="url" class="form-control" value="<%= myuser.getPicture_url()%>">
@@ -74,7 +74,7 @@
         </form>
 
         <h2 class="mt-4">Update Password</h2>
-        <form action="/updatePassword" method="post">
+        <form action="/update?password" method="post">
           <div class="form-group">
             <label>Old Password</label>
             <input type="password" name="old_password" class="form-control">
