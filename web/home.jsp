@@ -1,5 +1,7 @@
 <%@ page import="db.DBManager" %>
-<%@ page import="java.sql.Date" %><%--
+<%@ page import="java.sql.Date" %>
+<%@ page import="db.Posts" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: ERLAN-PC
   Date: 03.10.2020
@@ -35,6 +37,36 @@
             <td><a href="/logout" style="color: #a82047"><i class="fas fa-sign-out-alt mr-2"></i><strong>Logout</strong></a></td>
           </tr>
         </table>
+      </div>
+
+      <div class="col-sm-6">
+        <button type="button" class="btn btn-primary" data-toggle="modal" id="addNew"  data-target="#staticBackdrop">
+          +ADD NEW
+        </button>
+        <%
+          if(myuser!=null){
+            ArrayList<Posts> allPosts= DBManager.getAllPosts();
+            if(allPosts!=null){
+              for (Posts p:allPosts){
+        %>
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title"><%=p.getTitle()%></h5>
+            <p class="card-text"><%=p.getShort_content()%></p>
+            <form action="/details" method="get">
+              <input type="hidden" name="id" value="<%=p.getId()%>">
+              <button class="btn btn-light">More-></button>
+            </form>
+          </div>
+          <div class="card-footer">
+            Posted on <%=p.getPost_date()%> by <a style="color: rgba(4,91,135,0.85) "><%=p.getAuthor().getFullName()%></a>
+          </div>
+        </div>
+        <%
+              }
+            }
+          }
+        %>
       </div>
 
       <div class="col-sm-3 offset-1">
@@ -75,6 +107,38 @@
     </div>
   </div>
 
+  <form action="/addPost" method="post">
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Add New Post</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>TITLE:</label>
+              <input type="text" name="title" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>SHORT CONTENT:</label>
+              <textarea class="form-control" rows="20" name="short_content"></textarea>
+            </div>
+            <div class="form-group">
+              <label>CONTENT:</label>
+              <textarea class="form-control" rows="20" name="content"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 
   <%@include file="vendor/footer.jsp"%>
   </body>

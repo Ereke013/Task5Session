@@ -3,6 +3,7 @@ package db;
 import java.sql.*;
 import java.util.ArrayList;
 
+
 public class DBManager {
     private static Connection connection;
 
@@ -179,5 +180,92 @@ public class DBManager {
         }
 
         return userAge;
+    }
+
+    public static ArrayList<Posts> getAllPosts(){
+        ArrayList<Posts> postList = new ArrayList<>();
+        try {
+            PreparedStatement stat = connection.prepareStatement(" SELECT p.id,p.author_id,p.title,p.short_content,p.content,p.post_date ,u.id,u.email,u.password,u.full_name,u.picture_url,u.birth_date " +
+                    "  from posts p " +
+                    "  inner join users u on p.author_id = u.id " +
+                    " order by post_date asc ");
+            ResultSet rs = stat.executeQuery();
+            while (rs.next()) {
+                postList.add(new Posts(
+                        rs.getLong("id"),
+                        new Users(
+                                rs.getLong("id"),
+                                rs.getString("email"),
+                                rs.getString("password"),
+                                rs.getString("full_name"),
+                                rs.getDate("birth_date"),
+                                rs.getString("picture_url")
+                        ),
+                        rs.getString("title"),
+                        rs.getString("short_content"),
+                        rs.getString("content"),
+                        rs.getTimestamp("post_date")
+                ));
+            }
+            stat.close();
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
+        return postList;
+    }
+
+
+    public static boolean addPost(Posts post) {
+        int rows = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO posts (id, author_id, title, short_content, content, post_date) VALUES (null,?,?,?,?,NOW()) ");
+            statement.setLong(1, post.getAuthor().getId());
+            statement.setString(2, post.getTitle());
+            statement.setString(3, post.getShort_content());
+            statement.setString(4, post.getContent());
+
+            rows = statement.executeUpdate();
+            statement.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rows > 0;
+    }
+
+    public static Posts getPostById(Long id){
+        Posts p=null;
+
+        try {
+            PreparedStatement statement=connection.prepareStatement(" SELECT p.id,p.author_id,p.title,p.short_content,p.content,p.post_date ,u.id,u.email,u.password,u.full_name,u.picture_url,u.birth_date " +
+                    "   from posts p " +
+                    "  inner join users u on p.author_id = u.id " +
+                    " where p.id=? ");
+            statement.setLong(1,id);
+
+            ResultSet set=statement.executeQuery();
+
+            if(set.next()){
+                p=new Posts(
+                        set.getLong("id"),
+                        new Users(
+                                set.getLong("id"),
+                                set.getString("email"),
+                                set.getString("password"),
+                                set.getString("full_name"),
+                                set.getDate("birth_date"),
+                                set.getString("picture_url")
+                        ),
+                        set.getString("title"),
+                        set.getString("short_content"),
+                        set.getString("content"),
+                        set.getTimestamp("post_date")
+                );
+            }
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  p;
     }
 }
