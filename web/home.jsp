@@ -1,7 +1,8 @@
 <%@ page import="db.DBManager" %>
 <%@ page import="java.sql.Date" %>
 <%@ page import="db.Posts" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: ERLAN-PC
   Date: 03.10.2020
@@ -40,9 +41,9 @@
       </div>
 
       <div class="col-sm-6">
-        <button type="button" class="btn btn-primary" data-toggle="modal" id="addNew"  data-target="#staticBackdrop">
-          +ADD NEW
-        </button>
+<%--        <button type="button" class="btn btn-primary" data-toggle="modal" id="addNew"  data-target="#staticBackdrop">--%>
+<%--          +ADD NEW--%>
+<%--        </button>--%>
         <%
           if(myuser!=null){
             ArrayList<Posts> allPosts= DBManager.getAllPosts();
@@ -59,7 +60,11 @@
             </form>
           </div>
           <div class="card-footer">
-            Posted on <%=p.getPost_date()%> by <a style="color: rgba(4,91,135,0.85) "><%=p.getAuthor().getFullName()%></a>
+            <%
+//              SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+//              Date date = formatter.format(p.getPost_date())
+            %>
+            Posted on <%= p.getPost_date()%> by <a style="color: rgba(4,91,135,0.85) "><%=p.getAuthor().getFullName()%></a>
           </div>
         </div>
         <%
@@ -69,7 +74,7 @@
         %>
       </div>
 
-      <div class="col-sm-3 offset-1">
+      <div class="col-sm-3">
         <div class="card" style="width: 18rem;">
           <div class="card-header bg-primary" style="font-size: 15px; color: #ffffff">
             <strong>

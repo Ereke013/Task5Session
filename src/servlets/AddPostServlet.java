@@ -18,7 +18,7 @@ public class AddPostServlet extends HttpServlet {
         String short_content = request.getParameter("short_content");
         String content = request.getParameter("content");
 
-        Users users = (Users) request.getSession().getAttribute("MeUsers");
+        Users users = (Users) request.getSession().getAttribute("MeUser");
 
         if(users != null){
             if(DBManager.addPost(new Posts(null, users, title,short_content,content, null))){

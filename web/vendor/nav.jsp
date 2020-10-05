@@ -23,7 +23,7 @@
     <ul class="navbar-nav">
         <li class="nav-item">
 <%--            <a class="nav-link d-flex" style="font-size: 20px; color: #122647" href="/register"><i class="fas fa-portrait"></i>Feed</a>--%>
-            <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/city"><i class="fas fa-newspaper" style="margin-right: 7px"></i>Folder</a>
+            <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/home"><i class="fas fa-newspaper" style="margin-right: 7px"></i>Folder</a>
 <%--            <button class="btn" style="border: none; padding: 10px 10px; font-size: 20px; cursor: pointer"><a href="/" style="text-decoration: none;"><i class="fas fa-newspaper"></i>Folder</a></button>--%>
         </li>
         <li class="nav-item">
@@ -33,7 +33,7 @@
             <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/home"><i class="fas fa-users"style="margin-right: 7px"></i>Groups</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/home"><i class="far fa-comment" style="margin-right: 7px"></i>My Posts</a>
+            <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/myPost"><i class="far fa-comment" style="margin-right: 7px"></i>My Posts</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/home"><i class="fab fa-telegram-plane" style="margin-right: 7px"></i>Messages</a>
@@ -64,7 +64,7 @@
                     <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/register"><i class="fas fa-user-plus mr-1"></i>Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/logIn"><i class="fas fa-sign-in-alt mr-1"></i>Login</a>
+                    <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/signIn"><i class="fas fa-sign-in-alt mr-1"></i>Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/"><i class="fas fa-question-circle mr-1"></i>FAQ</a>

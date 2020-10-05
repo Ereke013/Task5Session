@@ -188,7 +188,7 @@ public class DBManager {
             PreparedStatement stat = connection.prepareStatement(" SELECT p.id,p.author_id,p.title,p.short_content,p.content,p.post_date ,u.id,u.email,u.password,u.full_name,u.picture_url,u.birth_date " +
                     "  from posts p " +
                     "  inner join users u on p.author_id = u.id " +
-                    " order by post_date asc ");
+                    " order by post_date desc ");
             ResultSet rs = stat.executeQuery();
             while (rs.next()) {
                 postList.add(new Posts(
@@ -267,5 +267,40 @@ public class DBManager {
             e.printStackTrace();
         }
         return  p;
+    }
+    public static ArrayList<Posts> getPostByUserId(Long id){
+        ArrayList<Posts> posts=new ArrayList<>();
+
+        try {
+            PreparedStatement statement=connection.prepareStatement(" SELECT p.id,p.author_id,p.title,p.short_content,p.content,p.post_date ,u.id,u.email,u.password,u.full_name,u.picture_url,u.birth_date " +
+                    "   from posts p " +
+                    "  inner join users u on p.author_id = u.id " +
+                    " where u.id=? ");
+            statement.setLong(1,id);
+
+            ResultSet set=statement.executeQuery();
+
+            while (set.next()){
+                posts.add(new Posts(
+                        set.getLong("id"),
+                        new Users(
+                                set.getLong("id"),
+                                set.getString("email"),
+                                set.getString("password"),
+                                set.getString("full_name"),
+                                set.getDate("birth_date"),
+                                set.getString("picture_url")
+                        ),
+                        set.getString("title"),
+                        set.getString("short_content"),
+                        set.getString("content"),
+                        set.getTimestamp("post_date")
+                ));
+            }
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  posts;
     }
 }
