@@ -56,7 +56,7 @@
             <p class="card-text"><%=p.getShort_content()%></p>
             <form action="/details" method="get">
               <input type="hidden" name="id" value="<%=p.getId()%>">
-              <button class="btn btn-light">More-></button>
+              <button class="btn btn-primary">More-></button>
             </form>
           </div>
           <div class="card-footer">
@@ -64,7 +64,7 @@
 //              SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 //              Date date = formatter.format(p.getPost_date())
             %>
-            Posted on <%= p.getPost_date()%> by <a style="color: rgba(4,91,135,0.85) "><%=p.getAuthor().getFullName()%></a>
+            Posted on <%= p.getPost_date()%> by <a style="color: rgba(4,91,135,0.85) "><strong style="color: rgb(24,11,122);"><%=p.getAuthor().getFullName()%></strong></a>
           </div>
         </div>
         <%

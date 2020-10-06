@@ -7,8 +7,8 @@
 %>
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(24,11,122); padding: 10px 10%">
         <a class="navbar-brand" href="/home" style=" font-size: 30px; color: #19386b">
-        <img src="../img/aa.png" width="30px" class="ui-icon-image mr-1" alt="" loading="lazy">
-        <strong style="color: #ffffff">ARALASU KZ</strong></a>
+<%--        <img src="../img/aa.png" width="30px" class="ui-icon-image mr-1" alt="" loading="lazy">--%>
+    <i class="fab fa-amilia mr-3" style="color: #FFFFFF"></i><strong style="color: #ffffff">ARALASU KZ</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -53,8 +53,9 @@
     %>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(24,11,122); padding: 10px 10%">
         <a class="navbar-brand" href="/" style=" font-size: 30px; color: #19386b">
-            <img src="../img/aa.png" width="30px" class="ui-icon-image mr-1" alt="" loading="lazy">
-            <strong style="color: #ffffff">ARALASU KZ</strong></a>
+<%--            <img src="../img/aa.png" width="30px" class="ui-icon-image mr-1" alt="" loading="lazy">--%>
+    <i class="fab fa-amilia mr-3" style="color: #FFFFFF"></i>
+    <strong style="color: #ffffff">ARALASU KZ</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -71,7 +72,7 @@
                 </li>
                 <li class="nav-item">
 
-                    <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/"><img src="img/aa.png" style="width: 20px">About Aralasu</a>
+                    <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/"><i class="fab fa-amilia" style="color: #FFFFFF"></i>About Aralasu</a>
                 </li>
             </ul>
     </div>

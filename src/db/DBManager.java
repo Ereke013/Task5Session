@@ -303,4 +303,25 @@ public class DBManager {
         }
         return  posts;
     }
+
+    public static boolean savePost(Posts post){
+        int rows = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE posts SET author_id = ?, title = ?, short_content=?, content=?, post_date=? WHERE id = ? ");
+            statement.setString(1,post.getTitle());
+//            statement.setString(2,post.getPassword());
+//            statement.setString(3,user.getFullName());
+//            java.util.Date utilStartDate = user.getBirthdate();
+//            java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+//            statement.setDate(4, (Date) user.getBirthdate());
+//            statement.setString(5,user.getPicture_url());
+//            statement.setLong(6,user.getId());
+
+            rows = statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rows > 0;
+    }
 }

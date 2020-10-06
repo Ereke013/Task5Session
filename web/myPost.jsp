@@ -13,7 +13,22 @@
     <title>My Post</title>
     <%@include file="vendor/head.jsp"%>
 <%--    <script src="tinymce/tinymce/tinymce.min.js"></script>--%>
-    <script>tinymce.init({selector:'textarea'});</script>
+<%--    <script>tinymce.init({selector:'textarea'});</script>--%>
+<%--    <script src="https://cdn.tiny.cloud/1/1x1l6uqjv5ujxfpdkoyg1vf5a9xmhjr0fhen7h7cpbyrtrve/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--%>
+<%--    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--%>
+<%--    <script>tinymce.init({selector:'textarea'});</script>--%>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            external_plugins:
+                {
+                    'saveToPdf': 'https://cdn.rawgit.com/Api2Pdf/api2pdf.tinymce/master/save-to-pdf/dist/save-to-pdf/plugin.js'
+                },
+            toolbar: 'saveToPdf',
+            saveToPdfHandler: '/REPLACE-WITH-HANDLER-URL'
+        });
+    </script>
 </head>
 <body>
 <%@include file="vendor/nav.jsp"%>
@@ -62,7 +77,7 @@
                     </form>
                 </div>
                 <div class="card-footer">
-                    Posted on <%=p.getPost_date()%> by <a style="color: rgba(4,91,135,0.85) "><%=p.getAuthor().getFullName()%></a>
+                    Posted on <%=p.getPost_date()%> by <a style="color: rgba(4,91,135,0.85) "><strong style="color: rgb(24,11,122);"><%=p.getAuthor().getFullName()%></strong></a>
                 </div>
             </div>
             <%
@@ -71,7 +86,7 @@
                 }
             %>
         </div>
-        <div class="col-sm-3    ">
+        <div class="col-sm-3">
             <div class="card" style="width: 18rem;">
                 <div class="card-header bg-primary" style="font-size: 15px; color: #ffffff">
                     <strong>
@@ -106,7 +121,39 @@
         </div>
 </div>
 
+<form action="/addPost" method="post">
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>TITLE:</label>
+                    <input type="text" name="title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>SHORT CONTENT:</label>
+                    <textarea class="form-control" rows="20" name="short_content"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>CONTENT:</label>
+                    <textarea class="form-control" rows="20" name="content"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+</form>
 <%@include file="vendor/footer.jsp"%>
 </body>
 </html>
