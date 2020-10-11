@@ -215,6 +215,7 @@ public class DBManager {
     }
 
 
+
     public static boolean addPost(Posts post) {
         int rows = 0;
         try {
@@ -268,6 +269,7 @@ public class DBManager {
         }
         return  p;
     }
+
     public static ArrayList<Posts> getPostByUserId(Long id){
         ArrayList<Posts> posts=new ArrayList<>();
 
@@ -323,5 +325,69 @@ public class DBManager {
             e.printStackTrace();
         }
         return rows > 0;
+    }
+
+    public static Posts getFriendsById(Long id){
+        Posts p=null;
+
+        try {
+            PreparedStatement statement=connection.prepareStatement(" SELECT p.id,p.author_id,p.title,p.short_content,p.content,p.post_date ,u.id,u.email,u.password,u.full_name,u.picture_url,u.birth_date " +
+                    "   from posts p " +
+                    "  inner join users u on p.author_id = u.id " +
+                    " where p.id=? ");
+            statement.setLong(1,id);
+
+            ResultSet set=statement.executeQuery();
+
+            if(set.next()){
+                p=new Posts(
+                        set.getLong("id"),
+                        new Users(
+                                set.getLong("id"),
+                                set.getString("email"),
+                                set.getString("password"),
+                                set.getString("full_name"),
+                                set.getDate("birth_date"),
+                                set.getString("picture_url")
+                        ),
+                        set.getString("title"),
+                        set.getString("short_content"),
+                        set.getString("content"),
+                        set.getTimestamp("post_date")
+                );
+            }
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  p;
+    }
+
+    public static ArrayList<Users> getAllFriends(Long id){
+        ArrayList<Users> friendsList = new ArrayList<>();
+        try {
+            PreparedStatement stat = connection.prepareStatement(" SELECT us.id, us.email, us.password, us.full_name, us.birth_date, us.picture_url " +
+                    "  from users u " +
+                    "  inner join friends f on u.id = f.friend_id " +
+                    " inner join users us on us.id = f.user_id " +
+                    " where u.id = ? ");
+            stat.setLong(1, id);
+            ResultSet rs = stat.executeQuery();
+            while (rs.next()) {
+                friendsList.add(new Users(
+                                rs.getLong("id"),
+                                rs.getString("email"),
+                                rs.getString("password"),
+                                rs.getString("full_name"),
+                                rs.getDate("birth_date"),
+                                rs.getString("picture_url")
+                        )
+                );
+            }
+            stat.close();
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
+        return friendsList;
     }
 }

@@ -27,7 +27,7 @@
 <%--            <button class="btn" style="border: none; padding: 10px 10px; font-size: 20px; cursor: pointer"><a href="/" style="text-decoration: none;"><i class="fas fa-newspaper"></i>Folder</a></button>--%>
         </li>
         <li class="nav-item">
-            <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/home"><i class="fas fa-user-friends" style="margin-right: 7px"></i>My Friends</a>
+            <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/friends"><i class="fas fa-user-friends" style="margin-right: 7px"></i>My Friends</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" style="font-size: 20px; color: #ffffff" href="/home"><i class="fas fa-users"style="margin-right: 7px"></i>Groups</a>
