@@ -526,4 +526,30 @@ public class DBManager {
         }
         return requestsList;
     }
+
+    public static ArrayList<Users> getMySend(Long id){
+        ArrayList<Users> requestsList = new ArrayList<>();
+        try {
+            PreparedStatement stat = connection.prepareStatement("select u.id, u.email, u.password, u.full_name, u.birth_date, u.picture_url\n" +
+                    " from friends_request f INNER JOIN users u on f.request_sender_id = u.id\n" +
+                    " WHERE f.user_id = ?");
+            stat.setLong(1, id);
+            ResultSet rs = stat.executeQuery();
+            while (rs.next()) {
+                requestsList.add(new Users(
+                                rs.getLong("id"),
+                                rs.getString("email"),
+                                rs.getString("password"),
+                                rs.getString("full_name"),
+                                rs.getDate("birth_date"),
+                                rs.getString("picture_url")
+                        )
+                );
+            }
+            stat.close();
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
+        return requestsList;
+    }
 }

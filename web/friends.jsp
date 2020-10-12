@@ -42,7 +42,40 @@
                 <input class="form-control mr-sm-4 col-sm-9" name="search_name" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fas fa-search mr-1"></i>Search</button>
             </form>
+
             <%
+                ArrayList<Users> usersRequest = DBManager.getAllRequests(myuser.getId());
+                if(usersRequest!=null){
+                    for(Users users:usersRequest){
+
+
+            %>
+            <div class="card mt-3">
+                <div class="card-header">
+                    You have <%=usersRequest.size()%> new requests
+                </div>
+                <div class="media" style="max-width: 540px;">
+                    <div class="row no-gutters p-2">
+                        <div class="col-md-4">
+                            <img src="<%=users.getPicture_url()%>" class="rounded-circle mt-3" width="100px" height="100px">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><strong><%= users.getFullName()%></strong></h5>
+                                <%--                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--%>
+                                <p class="card-text" style="font-size: 14px; color: #8c8685"><%= DBManager.getAge(users.getId()) %> age old</p>
+                                <p class="mb-0">
+                                    <button class="btn btn-sm btn-outline-primary"> <i class="fas fa-plus-circle"></i>Confirm</button>
+                                    <button class="btn btn-sm btn-outline-primary"> <i class="fas fa-trash-alt"></i>Reject</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%
+                    }
+                }
                 ArrayList<Users> userFriends = DBManager.getAllFriends(myuser.getId());
                 if(userFriends!=null){
                     for(Users user: userFriends){

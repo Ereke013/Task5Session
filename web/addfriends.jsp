@@ -57,6 +57,7 @@
                 }
                 ArrayList<Users> userFriends = (ArrayList<Users>) request.getAttribute("users");
                 ArrayList<Users> userFriendd = DBManager.getAllFriends(myuser.getId());
+                ArrayList<Users>userRequest=DBManager.getMySend(myuser.getId());
                 if(userFriends!=null){
                     for(Users user: userFriends){
                         if(user.getId() != myuser.getId()){
@@ -72,6 +73,19 @@
 <%--                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--%>
                             <p class="card-text" style="font-size: 14px; color: #8c8685"><%= DBManager.getAge(user.getId()) %> age old</p>
                             <%
+                                if(userRequest!=null){
+                                    boolean isfind1=false;
+                                    for(Users users:userRequest){
+                                        if(user.getId()==users.getId()){
+                                            isfind1=true;
+
+                            %>
+                            <button type="button" class="btn btn-outline-primary"><i class="fas fa-check" style="margin-right: 7px"></i> Request Sent</button>
+                            <%
+                                        }
+                                    }
+
+                            if(!isfind1){
                                 if(userFriendd != null){
                                     boolean isFind = false;
                                     for(Users users: userFriendd){
@@ -93,6 +107,8 @@
                                     }
 
                             }
+                                            }
+                                        }
 
                         %>
 
