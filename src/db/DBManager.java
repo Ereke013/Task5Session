@@ -455,25 +455,25 @@ public class DBManager {
         return rows>0;
     }
 
-    public static boolean addFriend(Long userId, Long friendRequestId){
-        int rows=0;
-        try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO friends (id, user_id, request_sende_id, added_time) VALUES (null,?,?, NOW()) ");
-            PreparedStatement statement2 = connection.prepareStatement("INSERT INTO friends (id, user_id, request_sende_id, added_time) VALUES (null,?,?, NOW()) ");
-            statement.setLong(1,userId);
-            statement.setLong(2, friendRequestId);
-            statement2.setLong(1,friendRequestId);
-            statement2.setLong(2, userId);
-
-            rows = statement.executeUpdate();
-            statement.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return rows>0;
-    }
+//    public static boolean addFriend(Long userId, Long friendRequestId){
+//        int rows=0;
+//        try {
+//            PreparedStatement statement = connection.prepareStatement("INSERT INTO friends (id, user_id, request_sende_id, added_time) VALUES (null,?,?, NOW()) ");
+//            PreparedStatement statement2 = connection.prepareStatement("INSERT INTO friends (id, user_id, request_sende_id, added_time) VALUES (null,?,?, NOW()) ");
+//            statement.setLong(1,userId);
+//            statement.setLong(2, friendRequestId);
+//            statement2.setLong(1,friendRequestId);
+//            statement2.setLong(2, userId);
+//
+//            rows = statement.executeUpdate();
+//            statement.close();
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return rows>0;
+//    }
 
 //    public static boolean getFriends(Long userId, Long friendId){
 //        try {
@@ -551,5 +551,67 @@ public class DBManager {
             E.printStackTrace();
         }
         return requestsList;
+    }
+
+    public static boolean removeFriend(Long user_id, Long friend_id){
+        int rows = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement("delete from friends where friend_id = ? and user_id = ?");
+
+            statement.setLong(1, user_id);
+            statement.setLong(2, friend_id);
+
+            rows = statement.executeUpdate();
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rows > 0;
+    }
+
+    public static boolean reject(Long user_id, Long friend_id){
+        int rows = 0;
+        System.out.println("user id= "+user_id);
+        System.out.println("friend id= "+friend_id);
+        try {
+            PreparedStatement statement = connection.prepareStatement("delete from friends_request where request_sender_id = ? and user_id = ?");
+
+            statement.setLong(1, user_id);
+            statement.setLong(2, friend_id);
+
+            rows = statement.executeUpdate();
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rows > 0;
+    }
+
+    public static boolean addFriend2(Long userId, Long friendRequestId){
+        int rows=0;
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO friends (id, user_id, friend_id, added_time) VALUES (null,?,?, NOW()) ");
+            statement.setLong(1,userId);
+            statement.setLong(2,friendRequestId);
+
+            rows = statement.executeUpdate();
+            statement.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM friends_request WHERE user_id=? and request_sender_id=? ");
+            System.out.println("user id= "+userId);
+            System.out.println("friend id =" +friendRequestId);
+            statement.setLong(1,friendRequestId);
+            statement.setLong(2,userId);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rows>0;
     }
 }

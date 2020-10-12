@@ -54,7 +54,7 @@
                 <div class="card-header">
                     You have <%=usersRequest.size()%> new requests
                 </div>
-                <div class="media" style="max-width: 540px;">
+                <div class="media" >
                     <div class="row no-gutters p-2">
                         <div class="col-md-4">
                             <img src="<%=users.getPicture_url()%>" class="rounded-circle mt-3" width="100px" height="100px">
@@ -64,10 +64,17 @@
                                 <h5 class="card-title"><strong><%= users.getFullName()%></strong></h5>
                                 <%--                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--%>
                                 <p class="card-text" style="font-size: 14px; color: #8c8685"><%= DBManager.getAge(users.getId()) %> age old</p>
-                                <p class="mb-0">
-                                    <button class="btn btn-sm btn-outline-primary"> <i class="fas fa-plus-circle"></i>Confirm</button>
-                                    <button class="btn btn-sm btn-outline-primary"> <i class="fas fa-trash-alt"></i>Reject</button>
-                                </p>
+                                <div class="d-flex">
+                                    <form action="/add" method="post">
+                                        <input type="hidden" name="id" value="<%=users.getId()%>">
+                                        <button class="btn btn-sm btn-outline-primary"> <i class="fas fa-plus-circle mr-1"></i>Confirm</button>
+                                    </form>
+                                    &nbsp;
+                                    <form action="/delete" method="post">
+                                        <input type="hidden" name="id" value="<%=users.getId()%>">
+                                        <button type="submit" class="btn btn-sm btn-outline-primary"> <i class="fas fa-trash-alt"></i>Reject</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
