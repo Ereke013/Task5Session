@@ -26,6 +26,15 @@ public class DeleteServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        Long id = Long.parseLong(request.getParameter("id"));
+        Users users = (Users) request.getSession().getAttribute("MeUser");
+        if(users!=null){
+            if(DBManager.removeFriend(users.getId(),id)){
+                response.sendRedirect("/friend");
+            }
+            else {
+                response.sendRedirect("/home");
+            }
+        }
     }
 }

@@ -91,11 +91,11 @@
             <div class="media card mb-3 mt-3" style="max-width: 540px;">
                 <div class="row no-gutters p-2">
                     <div class="col-md-4">
-                        <img src="<%=user.getPicture_url()%>" class="rounded-circle mt-3" width="100px" height="100px">
+                       <a href="/more?id=<%=user.getId()%>"><img src="<%=user.getPicture_url()%>" class="rounded-circle mt-3" width="100px" height="100px"></a>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title"><strong><%= user.getFullName()%></strong></h5>
+                            <a href="/more?id=<%=user.getId()%>"><h5 class="card-title"><strong><%= user.getFullName()%></strong></h5></a>
 <%--                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--%>
                             <p class="card-text" style="font-size: 14px; color: #8c8685"><%= DBManager.getAge(user.getId()) %> age old</p>
                             <button type="button" class="btn btn-outline-primary"><i class="fab fa-telegram-plane" style="margin-right: 7px"></i> Send Message</button>

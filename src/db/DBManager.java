@@ -363,7 +363,7 @@ public class DBManager {
         return  p;
     }
 
-    public static ArrayList<Users> getAllFriends(Long id){
+    /*public static ArrayList<Users> getAllFriends(Long id){
         ArrayList<Users> friendsList = new ArrayList<>();
         try {
             PreparedStatement stat = connection.prepareStatement(" SELECT us.id, us.email, us.password, us.full_name, us.birth_date, us.picture_url " +
@@ -389,6 +389,67 @@ public class DBManager {
             E.printStackTrace();
         }
         return friendsList;
+    }*/
+
+    public static ArrayList<Users> getAllFriends(Long id) {
+        ArrayList<Users> usersList = new ArrayList<>();
+        try {
+            PreparedStatement stat = connection.prepareStatement("SELECT us.id,\n" +
+                    "       us.email,\n" +
+                    "       us.password,\n" +
+                    "       us.full_name,\n" +
+                    "       us.picture_url,\n" +
+                    "       us.birth_date\n" +
+                    "from users u\n" +
+                    "         inner join friends f on u.id = f.friend_id\n" +
+                    "inner join users us on us.id=f.user_id\n" +
+                    "where u.id=?");
+
+            stat.setLong(1, id);
+            ResultSet rs = stat.executeQuery();
+            while (rs.next()) {
+                usersList.add(new Users(
+                        rs.getLong("id"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("full_name"),
+                        rs.getDate("birth_date"),
+                        rs.getString("picture_url")
+                ));
+            }
+            stat.close();
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
+        try {
+            PreparedStatement stat = connection.prepareStatement("SELECT us.id,\n" +
+                    "       us.email,\n" +
+                    "       us.password,\n" +
+                    "       us.full_name,\n" +
+                    "       us.picture_url,\n" +
+                    "       us.birth_date\n" +
+                    "from users u\n" +
+                    "         inner join friends f on u.id = f.user_id\n" +
+                    "inner join users us on us.id=f.friend_id\n" +
+                    "where u.id=?");
+
+            stat.setLong(1, id);
+            ResultSet rs = stat.executeQuery();
+            while (rs.next()) {
+                usersList.add(new Users(
+                        rs.getLong("id"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("full_name"),
+                        rs.getDate("birth_date"),
+                        rs.getString("picture_url")
+                ));
+            }
+            stat.close();
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
+        return usersList;
     }
 
     public static ArrayList<Users> getAllSearch(String name){
@@ -554,12 +615,14 @@ public class DBManager {
     }
 
     public static boolean removeFriend(Long user_id, Long friend_id){
+        System.out.println("user id= " + user_id);
+        System.out.println("friend id= " + friend_id);
         int rows = 0;
         try {
             PreparedStatement statement = connection.prepareStatement("delete from friends where friend_id = ? and user_id = ?");
 
-            statement.setLong(1, user_id);
-            statement.setLong(2, friend_id);
+            statement.setLong(1, friend_id);
+            statement.setLong(2, user_id);
 
             rows = statement.executeUpdate();
             statement.close();
