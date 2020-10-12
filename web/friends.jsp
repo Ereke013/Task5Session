@@ -38,12 +38,9 @@
         </div>
 
         <div class="col-sm-6">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-4 col-sm-9" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-            <form action="/addFriends" method="get">
-
+            <form class="form-inline my-2 my-lg-0" action="/addFriends" method="get">
+                <input class="form-control mr-sm-4 col-sm-9" name="search_name" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fas fa-search mr-1"></i>Search</button>
             </form>
             <%
                 ArrayList<Users> userFriends = DBManager.getAllFriends(myuser.getId());

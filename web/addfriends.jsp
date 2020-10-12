@@ -38,18 +38,28 @@
         </div>
 
         <div class="col-sm-6">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-4 col-sm-9" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-            <form action="/addFriends" method="get">
-
+            <form class="form-inline my-2 my-lg-0" action="/addFriends" method="get">
+                <input class="form-control mr-sm-4 col-sm-9" name="search_name" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fas fa-search mr-1"></i>Search</button>
             </form>
             <%
-                ArrayList<Users> userFriends = DBManager.getAllFriends(myuser.getId());
+                String search_name = request.getParameter("search_name");
+                if(search_name!=null){
+
+
+            %>
+            <div class="card mt-3">
+                <div class="card-body">
+                   <h3> Search results for: "<%=search_name%>"</h3>
+                </div>
+            </div>
+            <%
+                }
+                ArrayList<Users> userFriends = (ArrayList<Users>) request.getAttribute("users");
+                ArrayList<Users> userFriendd = DBManager.getAllFriends(myuser.getId());
                 if(userFriends!=null){
                     for(Users user: userFriends){
-//                        if(user != myuser){
+                        if(user.getId() != myuser.getId()){
             %>
             <div class="media card mb-3 mt-3" style="max-width: 540px;">
                 <div class="row no-gutters p-2">
@@ -61,7 +71,32 @@
                             <h5 class="card-title"><strong><%= user.getFullName()%></strong></h5>
 <%--                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--%>
                             <p class="card-text" style="font-size: 14px; color: #8c8685"><%= DBManager.getAge(user.getId()) %> age old</p>
+                            <%
+                                if(userFriendd != null){
+                                    boolean isFind = false;
+                                    for(Users users: userFriendd){
+                                        if(user.getId()==users.getId()){
+                                            isFind = true;
+
+                            %>
                             <button type="button" class="btn btn-outline-primary"><i class="fab fa-telegram-plane" style="margin-right: 7px"></i> Send Message</button>
+                        <%
+                                        }
+                                    }
+                                    if(!isFind) {
+                        %>
+                            <form action="/addFriends" method="post">
+                                <input type="hidden" name="id" value="<%=user.getId()%>">
+                                <button type="submit" class="btn btn-outline-primary"><i class="fas fa-plus-circle" style="margin-right: 7px"></i> Add To Friends</button>
+                            </form>
+                                    <%
+                                    }
+
+                            }
+
+                        %>
+
+
                         </div>
                     </div>
                 </div>
@@ -75,7 +110,7 @@
 
 <%--            </div>--%>
           <%
-//                      }
+                      }
                     }
                 }
             %>

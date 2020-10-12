@@ -10,5 +10,8 @@ public class Main {
         DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat m = new SimpleDateFormat("MM");
         System.out.println(f.format(d));
+        int a=5;
+        int b = a*10;
+        int c = (int) (b*0.1);
     }
 }

@@ -390,4 +390,140 @@ public class DBManager {
         }
         return friendsList;
     }
+
+    public static ArrayList<Users> getAllSearch(String name){
+        ArrayList<Users> friendsList = new ArrayList<>();
+        try {
+            PreparedStatement stat = connection.prepareStatement(" SELECT id, email, password, full_name, birth_date, picture_url " +
+                    "  from users " +
+                    " where full_name LIKE "+name+"%");
+            ResultSet rs = stat.executeQuery();
+            while (rs.next()) {
+                friendsList.add(new Users(
+                                rs.getLong("id"),
+                                rs.getString("email"),
+                                rs.getString("password"),
+                                rs.getString("full_name"),
+                                rs.getDate("birth_date"),
+                                rs.getString("picture_url")
+                        )
+                );
+            }
+            stat.close();
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
+        return friendsList;
+    }
+
+    public static ArrayList<Users> findFriend(String myValue) {
+        ArrayList<Users> friendsList = new ArrayList<Users>();
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * from users where full_name LIKE ? ");
+            ps.setString(1, "%"+myValue.toUpperCase()+"%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                friendsList .add(new Users(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        (Date )rs.getDate(5),
+                        rs.getString(6)
+                ));
+            }
+        } catch (Exception e) {
+        }
+
+        return friendsList;
+    }
+
+    public static boolean addFriendReq(Long userId, Long friendRequestId){
+        int rows=0;
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO friends_request (id, user_id, request_sender_id, sent_time) VALUES (null,?,?, NOW()) ");
+            statement.setLong(1,userId);
+            statement.setLong(2, friendRequestId);
+
+            rows = statement.executeUpdate();
+            statement.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rows>0;
+    }
+
+    public static boolean addFriend(Long userId, Long friendRequestId){
+        int rows=0;
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO friends (id, user_id, request_sende_id, added_time) VALUES (null,?,?, NOW()) ");
+            PreparedStatement statement2 = connection.prepareStatement("INSERT INTO friends (id, user_id, request_sende_id, added_time) VALUES (null,?,?, NOW()) ");
+            statement.setLong(1,userId);
+            statement.setLong(2, friendRequestId);
+            statement2.setLong(1,friendRequestId);
+            statement2.setLong(2, userId);
+
+            rows = statement.executeUpdate();
+            statement.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rows>0;
+    }
+
+//    public static boolean getFriends(Long userId, Long friendId){
+//        try {
+//            PreparedStatement statement=connection.prepareStatement("select u.id, u.email,u.full_name, u.birth_date, u.picture_url, f.sent_time\n" +
+//                    "from friends_requests f INNER JOIN users u on f.request_sender_id = u.id\n" +
+//                    "WHERE f.user_id = ? and f.request_sender_id=? ");
+//            statement.setLong(1,id);
+//            statement.setLong(2,idFriend);
+//
+//            ResultSet set=statement.executeQuery();
+//            while (set.next()){
+//                fr_id.put(new Users(
+//                                set.getLong("id"),
+//                                set.getString("email"),
+//                                set.getDate("birth_date"),
+//                                set.getString("picture_url")
+//                        ),
+//                        set.getTimestamp("sent_time"));
+//
+//            }
+//            statement.close();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+
+
+    public static ArrayList<Users> getAllRequests(Long id){
+        ArrayList<Users> requestsList = new ArrayList<>();
+        try {
+            PreparedStatement stat = connection.prepareStatement("select u.id, u.email, u.password, u.full_name, u.birth_date, u.picture_url\n" +
+                    " from friends_request f INNER JOIN users u on f.user_id = u.id\n" +
+                    " WHERE f.request_sender_id = ?");
+            stat.setLong(1, id);
+            ResultSet rs = stat.executeQuery();
+            while (rs.next()) {
+                requestsList.add(new Users(
+                                rs.getLong("id"),
+                                rs.getString("email"),
+                                rs.getString("password"),
+                                rs.getString("full_name"),
+                                rs.getDate("birth_date"),
+                                rs.getString("picture_url")
+                        )
+                );
+            }
+            stat.close();
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
+        return requestsList;
+    }
 }
